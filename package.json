@@ -23,9 +23,7 @@
     "email": "mail@substack.net",
     "url": "http://substack.net"
   },
-  "scripts": {
-    "test": "tap test/*.js"
-  },
+  "scripts": {},
   "license": "MIT",
   "testling": {
     "files": "test/*.js",
@@ -42,5 +40,13 @@
       "iphone/6.0..latest",
       "android-browser/4.2..latest"
     ]
+  },
+  "cortex": {
+    "dependencies": {},
+    "asyncDependencies": {},
+    "devDependencies": {
+      "assert": "~1.0.1"
+    },
+    "scripts": {}
   }
 }

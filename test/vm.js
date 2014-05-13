@@ -1,35 +1,29 @@
-var test = require('tape');
-var vm = require('../');
+var assert = require('assert');
+var vm = require('../index');
 
-test('vmRunInNewContext', function (t) {
-    t.plan(6);
-    
-    t.equal(vm.runInNewContext('a + 5', { a : 100 }), 105);
+it('vmRunInNewContext', function () {
+    assert.equal(vm.runInNewContext('a + 5', { a : 100 }), 105);
     
     (function () {
         var vars = { x : 10 };
-        t.equal(vm.runInNewContext('x++', vars), 10);
-        t.equal(vars.x, 11);
+        assert.equal(vm.runInNewContext('x++', vars), 10);
+        assert.equal(vars.x, 11);
     })();
     
     (function () {
         var vars = { x : 10 };
-        t.equal(vm.runInNewContext('var y = 3; y + x++', vars), 13);
-        t.equal(vars.x, 11);
-        t.equal(vars.y, 3);
+        assert.equal(vm.runInNewContext('var y = 3; y + x++', vars), 13);
+        assert.equal(vars.x, 11);
+        assert.equal(vars.y, 3);
     })();
-    
-    t.end();
 });
 
-test('vmRunInContext', function (t) {
-    t.plan(2);
-
+it('vmRunInContext', function () {
     var context = vm.createContext({ foo: 1 });
 
     vm.runInContext('var x = 1', context);
-    t.deepEqual(context, { foo: 1, x: 1 });
+    assert.deepEqual(context, { foo: 1, x: 1 });
 
     vm.runInContext('var y = 1', context);
-    t.deepEqual(context, { foo: 1, x: 1, y: 1 });
+    assert.deepEqual(context, { foo: 1, x: 1, y: 1 });
 });

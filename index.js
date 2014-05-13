@@ -1,5 +1,3 @@
-var indexOf = require('indexof');
-
 var Object_keys = function (obj) {
     if (Object.keys) return Object.keys(obj)
     else {
@@ -85,7 +83,15 @@ Script.prototype.runInContext = function (context) {
         // Avoid copying circular objects like `top` and `window` by only
         // updating existing context properties or new properties in the `win`
         // that was only introduced after the eval.
-        if (key in context || indexOf(winKeys, key) === -1) {
+        var isWinKey = false;
+        for(var i = 0; i < winKeys.length; ++i) {
+            if(winKeys[i] == key) {
+                isWinKey = true;
+                break;
+            }
+        }
+
+        if (key in context || !isWinKey) {
             context[key] = win[key];
         }
     });
